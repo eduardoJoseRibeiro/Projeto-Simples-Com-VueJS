@@ -47,22 +47,40 @@
       },
       methods: {
         adicionaItem () {
-          this.exibeModal('adicionar', this.novoItem)
-          this.itens.push(this.novoItem)
-          this.novoItem = null
+          let itemAdicionado = this.itens.push(this.novoItem)
+          
+          if (this.itens[itemAdicionado - 1] === this.itens[this.itens.length - 1]) {
+            // Exibe Mensagem de Sucesso
+            this.mensagemSucesso('adicionar', this.novoItem)
+            this.novoItem = null
+          } else {
+            // Exibe Mensagem de Falha
+            this.mensagemErro('adicionar', this.novoItem)
+          }
         },
         removerItem (posicao) {
-          this.exibeModal('remover', this.itens[posicao])
-          this.itens.splice(posicao, 1)
+          let itemExcluido = this.itens.splice(posicao, 1)
+          if (itemExcluido === this.itens[posicao]) {
+            // Exibir Mensagem de Falha
+            this.mensagemErro('remover', itemExcluido)
+          } else {
+            // Exibe Mensagem de Sucesso
+            this.mensagemSucesso('remover', itemExcluido)
+          }
         },
-        exibeModal (evento, item) {
+        mensagemSucesso (evento, item) {
           let text = evento === 'adicionar' ? // Define texto do Toast
             `${item} adicionado(s) com sucesso!` :
             `${item} removido(s) com sucesso!`
-          
-          let cor = evento === 'adicionar' ? 'green' : 'red' // Define Cor do Toast
 
-          M.toast({html: text, classes: `rounded ${cor}`})
+          M.toast({html: text, classes: `rounded green`})
+        },
+        mensagemErro (evento, item) {
+          let text = evento === 'adicionar' ? // Define texto do Toast
+            `Erro ao adicionar ${item}!` :
+            `Erro ao remover ${item}!`
+
+          M.toast({html: text, classes: `rounded red`})
         }
       }
     })
