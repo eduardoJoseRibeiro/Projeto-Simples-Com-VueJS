@@ -11,16 +11,45 @@
 <body>
   <div id="simple-shop" class="container">
     <h1>
-      {{ header }}
+      {{ header.toLocaleUpperCase() }}
     </h1>
-    <input type="text" v-model="header" />
+    <ul>
+      <li v-for="(item, index) in itens" :key="index">
+        {{ item }} <small @click="removerItem(index)">(Remover)</small>
+      </li>
+    </ul>
+    <div class="row">
+      <input
+        type="text"
+        v-model="novoItem"
+        class="col s11"
+        placeholder="Escreva Algo Aqui :)"/>
+      <button
+        class="col s1 waves-effect waves-light btn"
+        @click="adicionaItem">+</button>
+    </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
     let simpleShop = new Vue({
       el: '#simple-shop',
       data: {
-        header: 'New Project with VueJS'
+        header: 'Lista de Compras',
+        itens: [
+          '5 Biscoitos Passatempo',
+          '20 Bolos',
+          '6 Salgados'
+        ],
+        novoItem: null
+      },
+      methods: {
+        adicionaItem () {
+          this.itens.push(this.novoItem)
+          this.novoItem = null
+        },
+        removerItem (posicao) {
+          console.log(this.itens.splice(posicao, 1))
+        }
       }
     })
   </script>
