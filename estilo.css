@@ -2,3 +2,9 @@
   cursor: pointer;
   color: #757575 ;
 }
+
+#simple-shop {
+  box-shadow: 10px 10px 50px 0px rgba(0,0,0,.7);
+  padding: 1rem 3rem 1rem 3rem;
+  margin-top: 20vh;
+}
