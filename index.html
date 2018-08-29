@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Simples Projeto com VueJS</title>
-   <!-- Compiled and minified CSS -->
+   <!-- MATERIALIZE Compilado e minificado -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <!-- CSS PERSONALIZADO -->
   <link rel="stylesheet" href="./estilo.css">
 </head>
 <body>
@@ -30,9 +31,11 @@
         @click="adicionaItem">+</button>
     </div>
   </div>
-  <!-- Compiled and minified JavaScript -->
+  <!-- Compilado e minificado JavaScript MATERIALIZE -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+  <!-- VueJS Remoto -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- SCRIPT escriot em VUEJS propriamente dito -->
   <script>
     let simpleShop = new Vue({
       el: '#simple-shop',
@@ -47,6 +50,7 @@
       },
       methods: {
         adicionaItem () {
+          // Adiciona Item
           let itemAdicionado = this.itens.push(this.novoItem)
           
           if (this.itens[itemAdicionado - 1] === this.itens[this.itens.length - 1]) {
@@ -59,7 +63,9 @@
           }
         },
         removerItem (posicao) {
+          // Exclui Item
           let itemExcluido = this.itens.splice(posicao, 1)
+
           if (itemExcluido === this.itens[posicao]) {
             // Exibir Mensagem de Falha
             this.mensagemErro('remover', itemExcluido)
@@ -73,14 +79,14 @@
             `${item} adicionado(s) com sucesso!` :
             `${item} removido(s) com sucesso!`
 
-          M.toast({html: text, classes: `rounded green`})
+          M.toast({html: text, classes: `rounded green`}) // Cria Toast
         },
         mensagemErro (evento, item) {
           let text = evento === 'adicionar' ? // Define texto do Toast
             `Erro ao adicionar ${item}!` :
             `Erro ao remover ${item}!`
 
-          M.toast({html: text, classes: `rounded red`})
+          M.toast({html: text, classes: `rounded red`}) // Cria Toast
         }
       }
     })
