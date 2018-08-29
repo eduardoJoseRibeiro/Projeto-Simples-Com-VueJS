@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Simples Projeto com VueJS</title>
    <!-- Compiled and minified CSS -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <link rel="stylesheet" href="./estilo.css">
 </head>
 <body>
   <div id="simple-shop" class="container">
@@ -15,20 +16,22 @@
     </h1>
     <ul>
       <li v-for="(item, index) in itens" :key="index">
-        {{ item }} <small @click="removerItem(index)">(Remover)</small>
+        {{ item }} <small @click="removerItem(index)" class="remover">(Remover)</small>
       </li>
     </ul>
     <div class="row">
       <input
         type="text"
         v-model="novoItem"
-        class="col s11"
+        class="col s10"
         placeholder="Escreva Algo Aqui :)"/>
       <button
-        class="col s1 waves-effect waves-light btn"
+        class="col s2 waves-effect waves-light btn"
         @click="adicionaItem">+</button>
     </div>
   </div>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
     let simpleShop = new Vue({
@@ -44,11 +47,22 @@
       },
       methods: {
         adicionaItem () {
+          this.exibeModal('adicionar', this.novoItem)
           this.itens.push(this.novoItem)
           this.novoItem = null
         },
         removerItem (posicao) {
-          console.log(this.itens.splice(posicao, 1))
+          this.exibeModal('remover', this.itens[posicao])
+          this.itens.splice(posicao, 1)
+        },
+        exibeModal (evento, item) {
+          let text = evento === 'adicionar' ? // Define texto do Toast
+            `${item} adicionado(s) com sucesso!` :
+            `${item} removido(s) com sucesso!`
+          
+          let cor = evento === 'adicionar' ? 'green' : 'red' // Define Cor do Toast
+
+          M.toast({html: text, classes: `rounded ${cor}`})
         }
       }
     })
